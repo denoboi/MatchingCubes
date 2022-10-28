@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IStackable : IComponent
+public interface IStackable : IComponent, IObstacleTarget
 {
     public IStacker Stacker { get; }
 

@@ -8,6 +8,8 @@ public abstract class StackerBase : MonoBehaviour, IStacker
     [SerializeField] private Transform stackHolder;
     [SerializeField] private Rigidbody playerVisualRigidbody;
 
+    private const float ADDITIONAL_Y_POS = 0.75f;
+
     public List<IStackable> Stacks { get; set; }
 
     public virtual void Start()
@@ -18,23 +20,27 @@ public abstract class StackerBase : MonoBehaviour, IStacker
     public virtual void RemoveStack(IStackable stack)
     {
         if (Stacks.Contains(stack))
+        {
             Stacks.Remove(stack);
+            stack.OnUnstacked();
+        }
     }
 
     public virtual void AddStack(IStackable stack)
     {
-        if (!Stacks.Contains(stack))
+        if (!Stacks.Contains(stack) && !stack.IsStacked)
         {
             Stacks.Add(stack);
+            stack.OnStacked(this);
             stack.transform.SetParent(stackHolder);
 
             for (int i = Stacks.Count - 1; i >= 0; i--)
             {
-                Stacks[i].transform.position += Vector3.up;
+                Stacks[i].transform.position += Vector3.up * ADDITIONAL_Y_POS;
                 Stacks[i].transform.DOPunchScale((Vector3.right + Vector3.forward) * 0.3f, 0.5f, 1, 1).SetDelay(0.05f * i);
             }
 
-            playerVisualRigidbody.transform.localPosition = Vector3.up * Stacks.Count;
+            playerVisualRigidbody.transform.localPosition = (Vector3.up * ADDITIONAL_Y_POS) * Stacks.Count;
             playerVisualRigidbody.AddForce(Vector3.up * 100);
             stack.transform.localPosition = Vector3.zero;
         }

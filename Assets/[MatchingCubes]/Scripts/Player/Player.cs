@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public bool IsControlable { get; private set; }
+    public bool IsDead { get; set; }
 
     #region Getters
     private PlayerMovement playerMovement;
@@ -43,12 +44,22 @@ public class Player : MonoBehaviour
     private void EnableControls()
     {
         IsControlable = true;
+        IsDead = false;
         PlayerAnimator.TriggerAnimation(PlayerAnimator.RUN_ID);
     }
 
     private void DisableControls()
     {
         IsControlable = false;
+    }
+
+    private void Die()
+    {
+        if (IsDead) return;
+
+        IsDead = true;
+        GameManager.Instance.CompleteLevel(false);
+        PlayerAnimator.TriggerAnimation(PlayerAnimator.FALL_ID);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,4 +70,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.TryGetComponent(out IObstacle obstacle))
+        {
+            if (Stacker.Stacks.Count <= 0 && !obstacle.IsInteracted)
+                Die();
+            else if (Stacker.Stacks.Count > 0)
+                obstacle.OnInteracted(Stacker.Stacks[Stacker.Stacks.Count - 1]);
+        }
+    }
 }

@@ -15,6 +15,6 @@ public abstract class StackableBase : MonoBehaviour, IStackable
 
     public void OnUnstacked()
     {
-        Stacker = null;
+        transform.SetParent(null);
     }
 }

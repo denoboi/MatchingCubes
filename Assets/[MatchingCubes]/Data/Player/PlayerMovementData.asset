@@ -15,4 +15,4 @@ MonoBehaviour:
   BaseMovementSpeed: 5
   BoostedMovementSpeed: 7.5
   BaseSwerveSpeed: 1
-  ClampValueX: 1.5
+  ClampValueX: 1.25

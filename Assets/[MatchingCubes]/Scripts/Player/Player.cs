@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
 
     private PlayerAnimator playerAnimator;
     public PlayerAnimator PlayerAnimator { get { return playerAnimator == null ? playerAnimator = GetComponent<PlayerAnimator>() : playerAnimator; } }
+
+    private PlayerStacker stacker;
+    public PlayerStacker Stacker { get { return stacker == null ? stacker = GetComponent<PlayerStacker>() : stacker; } }
     #endregion
 
     private void OnEnable()
@@ -47,4 +50,13 @@ public class Player : MonoBehaviour
     {
         IsControlable = false;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out IStackable stackable))
+        {
+            Stacker.AddStack(stackable);
+        }
+    }
+
 }

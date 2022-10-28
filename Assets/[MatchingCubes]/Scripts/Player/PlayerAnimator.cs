@@ -9,13 +9,27 @@ public class PlayerAnimator : MonoBehaviour
     public const string JUMP_ID = "Jump";
     public const string FALL_ID = "Fall";
     public const string LAND_ID = "Land";
+    public const string STACK_ID = "StackCount";
     #endregion
 
     private Animator animator;
     public Animator Animator { get { return animator == null ? animator = GetComponentInChildren<Animator>() : animator; } }
 
+    private IStacker stacker;
+    public IStacker Stacker { get { return stacker == null ? stacker = GetComponent<IStacker>() : stacker; } }
+
     public void TriggerAnimation(string id)
     {
         Animator.SetTrigger(id);
+    }
+
+    private void Update()
+    {
+        UpdateAnimatorValues();
+    }
+
+    private void UpdateAnimatorValues()
+    {
+        Animator.SetFloat(STACK_ID, Stacker.Stacks.Count);
     }
 }

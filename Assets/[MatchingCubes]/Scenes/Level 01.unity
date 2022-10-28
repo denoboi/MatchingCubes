@@ -489,6 +489,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 25f9a6c11d9f9c14a9304f5d9ac49068, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 3bb72b39a409279438af6e1630afa20d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bdb62af82188797449af45f8f801b1a3, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 3bb72b39a409279438af6e1630afa20d, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 3bb72b39a409279438af6e1630afa20d, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bb72b39a409279438af6e1630afa20d, type: 3}
 --- !u!4 &634613614 stripped
@@ -604,6 +616,7 @@ GameObject:
   - component: {fileID: 812067526}
   - component: {fileID: 812067525}
   - component: {fileID: 812067524}
+  - component: {fileID: 812067527}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -691,6 +704,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a4cdcb6e414cdb4594c4150f36ef81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &812067527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812067520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6837aad9981a2de49806bea869d85014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &826106420

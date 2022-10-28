@@ -6,11 +6,16 @@ public class Player : MonoBehaviour
 {
     public bool IsControlable { get; private set; }
 
+    #region Getters
     private PlayerMovement playerMovement;
     public PlayerMovement PlayerMovement { get { return playerMovement == null ? playerMovement = GetComponent<PlayerMovement>() : playerMovement; } }
 
     private PlayerInput playerInput;
     public PlayerInput PlayerInput { get { return playerInput == null ? playerInput = GetComponent<PlayerInput>() : playerInput; } }
+
+    private PlayerAnimator playerAnimator;
+    public PlayerAnimator PlayerAnimator { get { return playerAnimator == null ? playerAnimator = GetComponent<PlayerAnimator>() : playerAnimator; } }
+    #endregion
 
     private void OnEnable()
     {
@@ -35,6 +40,7 @@ public class Player : MonoBehaviour
     private void EnableControls()
     {
         IsControlable = true;
+        PlayerAnimator.TriggerAnimation(PlayerAnimator.RUN_ID);
     }
 
     private void DisableControls()

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LevelDatabase
   m_EditorClassIdentifier: 
   levels:
-  - levelId: Level-Prototype
+  - levelId: Level 01
     levelType: 0

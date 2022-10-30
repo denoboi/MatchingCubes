@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d01536ae30c07c446894ee87ba57d31c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,9 +126,9 @@ GameObject:
   - component: {fileID: 3124610873983175327}
   - component: {fileID: 3124610873983175326}
   - component: {fileID: 3124610873983175312}
-  - component: {fileID: 3124610873983175313}
+  - component: {fileID: -5310939704541591728}
   m_Layer: 0
-  m_Name: CubeStack
+  m_Name: CubeStack_Random
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,7 +179,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.75, z: 0.75}
   m_Center: {x: 0, y: 0.375, z: 0}
---- !u!114 &3124610873983175313
+--- !u!114 &-5310939704541591728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,6 +188,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3124610873983175324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4be72405783204d448feec01ad882ac1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f898d42abbb1cd47a31149dcfad4aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <StackType>k__BackingField: {fileID: 0}
+  stackTypeDatabase: {fileID: 11400000, guid: 011a47060ece6b947bcca807d72e4dbf, type: 2}

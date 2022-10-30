@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class StackerBase : MonoBehaviour, IStacker
 {
@@ -11,6 +12,8 @@ public abstract class StackerBase : MonoBehaviour, IStacker
     private const float ADDITIONAL_Y_POS = 0.75f;
 
     public List<IStackable> Stacks { get; set; }
+
+    public Event OnStacked = new Event();
 
     public virtual void Start()
     {
@@ -34,15 +37,31 @@ public abstract class StackerBase : MonoBehaviour, IStacker
             stack.OnStacked(this);
             stack.transform.SetParent(stackHolder);
 
-            for (int i = Stacks.Count - 1; i >= 0; i--)
+            Vector3 targetPlayerPosition = (Vector3.up * ADDITIONAL_Y_POS) * Stacks.Count;
+            if (playerVisualRigidbody.transform.localPosition.y < targetPlayerPosition.y)
             {
-                Stacks[i].transform.position += Vector3.up * ADDITIONAL_Y_POS;
-                Stacks[i].transform.DOPunchScale((Vector3.right + Vector3.forward) * 0.3f, 0.5f, 1, 1).SetDelay(0.05f * i);
+                playerVisualRigidbody.transform.localPosition = targetPlayerPosition;
+                playerVisualRigidbody.AddForce(Vector3.up * 100);
             }
 
-            playerVisualRigidbody.transform.localPosition = (Vector3.up * ADDITIONAL_Y_POS) * Stacks.Count;
-            playerVisualRigidbody.AddForce(Vector3.up * 100);
+            playerVisualRigidbody.velocity = Vector3.zero;
+
+            int j = 0;
+            for (int i = Stacks.Count - 1; i >= 0; i--)
+            {
+                Transform stackTransform = Stacks[i].transform;
+
+                Vector3 newStackPosition = (Vector3.up * ADDITIONAL_Y_POS) * j;
+
+                if (stackTransform.localPosition.y < newStackPosition.y)
+                    stackTransform.localPosition = newStackPosition;
+
+                stackTransform.DOPunchScale((Vector3.right + Vector3.forward) * 0.3f, 0.5f, 1, 1).SetDelay(0.05f * i).OnComplete(()=> stackTransform.localScale = Vector3.one).SetId(stackTransform.gameObject.GetInstanceID());
+                j++;
+            }
+
             stack.transform.localPosition = Vector3.zero;
+            OnStacked.Invoke();
         }
     }
 }

@@ -38,6 +38,8 @@ public class PlayerStacker : StackerBase
                 currentStack.Dispose();
                 previousStack.Dispose();
                 nextStack.Dispose();
+
+                Events.OnLastStackableChanged.Invoke(GetLastStack());
                 break;
             }
         }

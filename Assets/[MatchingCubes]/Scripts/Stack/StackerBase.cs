@@ -61,7 +61,13 @@ public abstract class StackerBase : MonoBehaviour, IStacker
             }
 
             stack.transform.localPosition = Vector3.zero;
+            Events.OnLastStackableChanged.Invoke(GetLastStack());
             OnStacked.Invoke();
         }
+    }
+
+    public IStackable GetLastStack()
+    {
+        return Stacks.Count > 0 ? Stacks[Stacks.Count - 1] : null;
     }
 }

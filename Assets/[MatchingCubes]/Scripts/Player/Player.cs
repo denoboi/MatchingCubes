@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private LayerMask groundLayer;
+
     public bool IsControlable { get; private set; }
     public bool IsDead { get; set; }
+    public bool IsGrounded { get; set; }
 
     #region Getters
     private PlayerMovement playerMovement;
@@ -19,6 +22,9 @@ public class Player : MonoBehaviour
 
     private PlayerStacker stacker;
     public PlayerStacker Stacker { get { return stacker == null ? stacker = GetComponent<PlayerStacker>() : stacker; } }
+
+    private TrailController trail;
+    public TrailController Trail { get { return trail == null ? trail = GetComponent<TrailController>() : trail; } }
     #endregion
 
     private void OnEnable()
@@ -39,6 +45,12 @@ public class Player : MonoBehaviour
 
         PlayerMovement.Move(Vector3.forward);
         PlayerMovement.Swerve(PlayerInput.InputX);
+        Trail.ToggleTrail(IsGrounded);
+    }
+
+    private void FixedUpdate()
+    {
+        CheckIfIsGrounded();
     }
 
     private void EnableControls()
@@ -77,7 +89,26 @@ public class Player : MonoBehaviour
             if (Stacker.Stacks.Count <= 0 && !obstacle.IsInteracted)
                 Die();
             else if (Stacker.Stacks.Count > 0)
+            {
                 obstacle.OnInteracted(Stacker.Stacks[Stacker.Stacks.Count - 1]);
+                Events.OnLastStackableChanged.Invoke(Stacker.GetLastStack());
+            }
+        }
+    }
+
+    private void CheckIfIsGrounded()
+    {
+        IStackable stack = Stacker.GetLastStack();
+
+        if (stack == null) 
+            IsGrounded = false;
+        else
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(stack.transform.position + Vector3.up, Vector3.down, out hit, 1.05f, groundLayer))
+                IsGrounded = true;
+            else
+                IsGrounded = false;
         }
     }
 }

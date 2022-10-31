@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -86,6 +87,13 @@ public class Player : MonoBehaviour
             gate.OnInteracted(Stacker);
             Events.OnLastStackableChanged.Invoke(Stacker.GetLastStack());
             Stacker.CheckMatches();
+        }
+
+        if (other.TryGetComponent(out EndPlatform platform))
+        {
+            GameManager.Instance.CompleteLevel(true);
+            transform.DOLookAt(Vector3.back, 0.5f);
+            PlayerAnimator.TriggerAnimation(PlayerAnimator.DANCE_ID);
         }
     }
 

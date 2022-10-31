@@ -10,6 +10,7 @@ public class PlayerAnimator : MonoBehaviour
     public const string FALL_ID = "Fall";
     public const string LAND_ID = "Land";
     public const string STACK_ID = "StackCount";
+    public const string DANCE_ID = "Dance";
     #endregion
 
     private Animator animator;

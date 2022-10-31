@@ -20,7 +20,7 @@ public class ObstacleLava : ObstacleBase
         if (target.transform.TryGetComponent(out Rigidbody rb))
         {
             rb.isKinematic = true;
-            target.transform.DOMoveY(target.transform.position.y - 1f, 0.25f);
+            target.transform.DOMoveY(-1f, 0.25f);
         }
 
         StartCoroutine(ActivateAfterInteractionCo());

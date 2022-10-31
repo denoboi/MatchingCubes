@@ -26,4 +26,9 @@ public class PlayerMovement : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, -movementData.ClampValueX, movementData.ClampValueX);
         transform.position = pos;
     }
+
+    public void SetSpeedBoost(bool value)
+    {
+        isBoosted = value;
+    }
 }

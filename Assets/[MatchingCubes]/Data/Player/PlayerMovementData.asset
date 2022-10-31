@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
   BaseMovementSpeed: 5
-  BoostedMovementSpeed: 7.5
+  BoostedMovementSpeed: 10
   BaseSwerveSpeed: 1
   ClampValueX: 1.25

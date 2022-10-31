@@ -8,8 +8,10 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     public bool IsControlable { get; private set; }
-    public bool IsDead { get; set; }
-    public bool IsGrounded { get; set; }
+    public bool IsDead { get; private set; }
+    public bool IsGrounded { get; private set; }
+    public bool IsBoosted { get; set; }
+    public bool IsJumping { get; set; }
 
     #region Getters
     private PlayerMovement playerMovement;
@@ -44,8 +46,11 @@ public class Player : MonoBehaviour
     {
         if (!IsControlable) return;
 
-        PlayerMovement.Move(Vector3.forward);
+        if (!IsJumping)
+            PlayerMovement.Move(Vector3.forward);
+
         PlayerMovement.Swerve(PlayerInput.InputX);
+
         Trail.ToggleTrail(IsGrounded);
     }
 
@@ -94,6 +99,11 @@ public class Player : MonoBehaviour
             GameManager.Instance.CompleteLevel(true);
             transform.DOLookAt(Vector3.back, 0.5f);
             PlayerAnimator.TriggerAnimation(PlayerAnimator.DANCE_ID);
+        }
+
+        if (other.TryGetComponent(out IBoost boost))
+        {
+            boost.Use(transform);
         }
     }
 

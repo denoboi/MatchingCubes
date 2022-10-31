@@ -8,6 +8,7 @@ public abstract class StackerBase : MonoBehaviour, IStacker
 {
     [SerializeField] private Transform stackHolder;
     [SerializeField] private Rigidbody playerVisualRigidbody;
+    public Rigidbody PlayerVisualRigidbody => playerVisualRigidbody;
 
     private const float ADDITIONAL_Y_POS = 0.75f;
 
@@ -56,6 +57,8 @@ public abstract class StackerBase : MonoBehaviour, IStacker
                 if (stackTransform.localPosition.y < newStackPosition.y)
                     stackTransform.localPosition = newStackPosition;
 
+                if (DOTween.IsTweening(stackTransform.gameObject.GetInstanceID()))
+                    DOTween.Kill(stackTransform.gameObject.GetInstanceID(), true);
                 stackTransform.DOPunchScale((Vector3.right + Vector3.forward) * 0.3f, 0.5f, 1, 1).SetDelay(0.05f * i).OnComplete(()=> stackTransform.localScale = Vector3.one).SetId(stackTransform.gameObject.GetInstanceID());
                 j++;
             }

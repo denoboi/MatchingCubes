@@ -58,6 +58,17 @@ public abstract class StackableBase : MonoBehaviour, IStackable
     public virtual void UpdateStackType(StackTypeSO stackType)
     {
         StackType = stackType;
+
+        ParticleSystem particle = Instantiate(StackType.ColorChangeParticle, transform.position, StackType.ColorChangeParticle.transform.rotation, transform);
+
+        foreach (var p in particle.GetComponentsInChildren<ParticleSystem>())
+        {
+            var main = p.main;
+            main.startColor = StackType.Color;
+        }
+
+        particle.Play();
+
         Initialise();
     }
 }

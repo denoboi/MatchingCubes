@@ -27,7 +27,7 @@ public class TrailController : MonoBehaviour
 
         foreach (var type in stackTypesDatabase.StackTypes)
         {
-            TrailRenderer trail = Instantiate(trailPrefab, transform.position + Vector3.up * 0.01f, trailPrefab.transform.rotation, transform);
+            TrailRenderer trail = Instantiate(trailPrefab, transform.position + Vector3.back * 0.2f + Vector3.up * 0.01f, trailPrefab.transform.rotation, transform);
             trail.emitting = false;
             trail.material.color = type.Color;
             trails.Add(type, trail);

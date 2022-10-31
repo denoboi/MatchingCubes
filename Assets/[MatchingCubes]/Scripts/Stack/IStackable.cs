@@ -9,6 +9,9 @@ public interface IStackable : IComponent, IObstacleTarget
 
     public bool IsStacked { get; }
 
+    public void Initialise();
+    public void UpdateStackType(StackTypeSO type);
+
     public void OnStacked(IStacker stacker);
     public void OnUnstacked();
     public void Dispose();

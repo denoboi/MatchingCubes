@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,4 +8,5 @@ public class StackTypeSO : ScriptableObject
 {
     public Color Color;
     public ParticleSystem DisposeParticle;
+    public ParticleSystem ColorChangeParticle;
 }

@@ -80,6 +80,13 @@ public class Player : MonoBehaviour
         {
             Stacker.AddStack(stackable);
         }
+
+        if (other.TryGetComponent(out IGate gate))
+        {
+            gate.OnInteracted(Stacker);
+            Events.OnLastStackableChanged.Invoke(Stacker.GetLastStack());
+            Stacker.CheckMatches();
+        }
     }
 
     private void OnTriggerStay(Collider other)

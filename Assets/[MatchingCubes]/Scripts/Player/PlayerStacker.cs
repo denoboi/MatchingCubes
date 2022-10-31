@@ -14,7 +14,7 @@ public class PlayerStacker : StackerBase
         OnStacked.RemoveListener(CheckMatches);
     }
 
-    private void CheckMatches()
+    public void CheckMatches()
     {
         StartCoroutine(CheckMatchesCo());
     }
@@ -39,6 +39,7 @@ public class PlayerStacker : StackerBase
                 previousStack.Dispose();
                 nextStack.Dispose();
 
+                CheckMatches();
                 Events.OnLastStackableChanged.Invoke(GetLastStack());
                 break;
             }

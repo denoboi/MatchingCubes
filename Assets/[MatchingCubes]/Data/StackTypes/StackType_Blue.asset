@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Color: {r: 0.33490568, g: 0.6159265, b: 1, a: 1}
   DisposeParticle: {fileID: 19845612, guid: 031b99633d974914ba084e9ad1288925, type: 3}
+  ColorChangeParticle: {fileID: 3412972589776214846, guid: 684bfc5c9d9dcd949a3544a2e1f06ea0, type: 3}

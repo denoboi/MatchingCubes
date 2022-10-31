@@ -6,4 +6,6 @@ public interface IObstacle : IComponent
 {
     public bool IsInteracted { get; set; }
     public void OnInteracted(IObstacleTarget target);
+
+    public void Dispose();
 }

@@ -6,12 +6,17 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float feverModeDuration;
+    [SerializeField] private float feverModeActivationThreshold;
 
     public bool IsControlable { get; private set; }
     public bool IsDead { get; private set; }
     public bool IsGrounded { get; private set; }
     public bool IsBoosted { get; set; }
     public bool IsJumping { get; set; }
+
+    private int matchCount;
+    private Coroutine feverRoutine;
 
     #region Getters
     private PlayerMovement playerMovement;
@@ -34,12 +39,14 @@ public class Player : MonoBehaviour
     {
         LevelSystem.Instance.OnLevelStarted.AddListener(EnableControls);
         LevelSystem.Instance.OnLevelFinished.AddListener(DisableControls);
+        Stacker.OnSuccessfulMatch.AddListener(CheckFeverMode);
     }
 
     private void OnDisable()
     {
         LevelSystem.Instance.OnLevelStarted.RemoveListener(EnableControls);
         LevelSystem.Instance.OnLevelFinished.RemoveListener(DisableControls);
+        Stacker.OnSuccessfulMatch.RemoveListener(CheckFeverMode);
     }
 
     private void Update()
@@ -80,6 +87,37 @@ public class Player : MonoBehaviour
         PlayerAnimator.TriggerAnimation(PlayerAnimator.FALL_ID);
     }
 
+    private void CheckFeverMode()
+    {
+        if (IsBoosted) return;
+
+        if (feverRoutine != null)
+            StopCoroutine(feverRoutine);
+
+        feverRoutine = StartCoroutine(CheckFeverModeCo());
+    }
+
+    private IEnumerator CheckFeverModeCo()
+    {
+        matchCount++;
+        if (matchCount >= 3)
+        {
+            matchCount = 0;
+            StartCoroutine(ActivateFeverMode());
+        }
+        yield return new WaitForSeconds(feverModeActivationThreshold);
+        matchCount = 0;
+    }
+
+    private IEnumerator ActivateFeverMode()
+    {
+        IsBoosted = true;
+        PlayerMovement.SetSpeedBoost(true);
+        yield return new WaitForSeconds(feverModeDuration);
+        IsBoosted = false;
+        PlayerMovement.SetSpeedBoost(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out IStackable stackable))
@@ -111,6 +149,12 @@ public class Player : MonoBehaviour
     {
         if (other.TryGetComponent(out IObstacle obstacle))
         {
+            if (IsBoosted)
+            {
+                obstacle.Dispose();
+                return;
+            }
+
             if (Stacker.Stacks.Count <= 0 && !obstacle.IsInteracted)
                 Die();
             else if (Stacker.Stacks.Count > 0)

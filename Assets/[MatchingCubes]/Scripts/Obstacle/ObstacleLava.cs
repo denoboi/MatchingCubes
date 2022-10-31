@@ -31,4 +31,10 @@ public class ObstacleLava : ObstacleBase
         yield return new WaitForSeconds(interactionResetDuration);
         IsInteracted = false;
     }
+
+    public override void Dispose()
+    {
+        
+    }
+
 }

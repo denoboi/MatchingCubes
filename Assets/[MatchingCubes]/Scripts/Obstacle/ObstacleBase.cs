@@ -16,4 +16,5 @@ public abstract class ObstacleBase : MonoBehaviour, IObstacle
             IsInteracted = true;
         }
     }
+    public abstract void Dispose();
 }

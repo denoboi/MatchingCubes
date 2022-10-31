@@ -15,7 +15,9 @@ public class JumpBoost : BoostBase
         {
             Rigidbody rigidbody = null;
             IStackable stack = player.Stacker.GetLastStack();
-            rigidbody = stack.transform.GetComponent<Rigidbody>();
+
+            if (stack != null)
+                rigidbody = stack.transform.GetComponent<Rigidbody>();
 
             if (rigidbody == null)
                 rigidbody = player.Stacker.PlayerVisualRigidbody;

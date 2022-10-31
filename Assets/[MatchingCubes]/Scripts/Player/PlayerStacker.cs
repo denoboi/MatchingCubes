@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerStacker : StackerBase
 {
+    public Event OnSuccessfulMatch = new Event();
+
     private void OnEnable()
     {
         OnStacked.AddListener(CheckMatches);
@@ -39,8 +41,9 @@ public class PlayerStacker : StackerBase
                 currentStack.Dispose();
                 previousStack.Dispose();
                 nextStack.Dispose();
-
                 CheckMatches();
+
+                OnSuccessfulMatch.Invoke();
                 Events.OnLastStackableChanged.Invoke(GetLastStack());
                 break;
             }

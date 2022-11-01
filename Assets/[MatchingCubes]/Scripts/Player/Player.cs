@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform visual;
     [SerializeField] private float feverModeDuration;
     [SerializeField] private float feverModeActivationThreshold;
 
@@ -78,13 +79,14 @@ public class Player : MonoBehaviour
         IsControlable = false;
     }
 
-    private void Die()
+    public void Die()
     {
         if (IsDead) return;
 
         IsDead = true;
         GameManager.Instance.CompleteLevel(false);
         PlayerAnimator.TriggerAnimation(PlayerAnimator.FALL_ID);
+        CameraManager.Instance.SwitchCam("End", 1);
     }
 
     private void CheckFeverMode()
@@ -137,28 +139,14 @@ public class Player : MonoBehaviour
         if (other.TryGetComponent(out EndPlatform platform))
         {
             GameManager.Instance.CompleteLevel(true);
-            transform.DOLookAt(Vector3.back, 0.5f);
+            visual.DOLookAt(Vector3.back, 0.5f);
             PlayerAnimator.TriggerAnimation(PlayerAnimator.DANCE_ID);
+            CameraManager.Instance.SwitchCam("End", 1);
         }
 
         if (other.TryGetComponent(out IBoost boost))
         {
             boost.Use(transform);
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.TryGetComponent(out IObstacle obstacle))
-        {
-            if (IsBoosted)
-            {
-                obstacle.Dispose();
-                return;
-            }
-
-            if (Stacker.Stacks.Count <= 0 && !obstacle.IsInteracted)
-                Die();
         }
     }
 

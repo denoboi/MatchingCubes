@@ -4082,6 +4082,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[SCENE ESSENTIALS]'
       objectReference: {fileID: 0}
+    - target: {fileID: 863718665451110051, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.13762
+      objectReference: {fileID: 0}
+    - target: {fileID: 863718665451110051, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18.716541
+      objectReference: {fileID: 0}
+    - target: {fileID: 863718665451110051, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.359512
+      objectReference: {fileID: 0}
+    - target: {fileID: 863718665451110051, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98537993
+      objectReference: {fileID: 0}
+    - target: {fileID: 863718665451110051, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.1396207
+      objectReference: {fileID: 0}
+    - target: {fileID: 863718665451110051, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.096669026
+      objectReference: {fileID: 0}
+    - target: {fileID: 863718665451110051, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.013697254
+      objectReference: {fileID: 0}
     - target: {fileID: 863718665619338033, guid: 00b4a14faa998c64ca5fcb473e76cd94, type: 3}
       propertyPath: m_Follow
       value: 

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IObstacleTarget : IComponent
 {
-    //marker class
+    bool IsImmune { get; set; }
 }

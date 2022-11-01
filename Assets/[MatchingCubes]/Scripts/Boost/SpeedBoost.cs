@@ -15,9 +15,11 @@ public class SpeedBoost : BoostBase
         {
             player.IsBoosted = true;
             player.PlayerMovement.SetSpeedBoost(true);
+            Events.OnSpeedBoostChanged.Invoke(true);
             yield return new WaitForSeconds(boostDuration);
             player.IsBoosted = false;
             player.PlayerMovement.SetSpeedBoost(false);
+            Events.OnSpeedBoostChanged.Invoke(false);
         }
     }
 }

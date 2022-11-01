@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ObstacleCube : ObstacleBase
 {
-    private Rigidbody rb;
-    public Rigidbody Rb { get { return rb == null ? rb = GetComponent<Rigidbody>() : rb; } }
-
+    [SerializeField] private Rigidbody[] cubeRigidbodies;
     private bool isDisposed;
 
     public override void Dispose()
@@ -23,7 +21,10 @@ public class ObstacleCube : ObstacleBase
                 obstacle.Dispose();
         }
 
-        Rb.isKinematic = false;
-        Rb.AddForce(new Vector3(Random.Range(-1, 2), 1, Random.Range(-1, 2)) * 100);
+        foreach (var rb in cubeRigidbodies)
+        {
+            rb.isKinematic = false;
+            rb.AddForce(new Vector3(Random.Range(-1, 2), 1, Random.Range(-1, 2)) * 250);
+        }
     }
 }

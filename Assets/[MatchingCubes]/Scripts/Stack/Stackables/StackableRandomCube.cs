@@ -8,6 +8,7 @@ public class StackableRandomCube : StackableBase
 
     public override void Start()
     {
+        CanStack = true;
         UpdateStackType(stackTypeDatabase.GetRandomStackType());
     }
 }

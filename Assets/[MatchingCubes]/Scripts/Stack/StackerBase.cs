@@ -32,7 +32,7 @@ public abstract class StackerBase : MonoBehaviour, IStacker
 
     public virtual void AddStack(IStackable stack)
     {
-        if (!Stacks.Contains(stack) && !stack.IsStacked)
+        if (!Stacks.Contains(stack) && stack.CanStack && !stack.IsStacked)
         {
             Stacks.Add(stack);
             stack.OnStacked(this);

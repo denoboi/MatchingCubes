@@ -8,6 +8,7 @@ public interface IStackable : IComponent, IObstacleTarget
     public IStacker Stacker { get; }
 
     public bool IsStacked { get; }
+    public bool CanStack { get; }
 
     public void Initialise();
     public void UpdateStackType(StackTypeSO type);

@@ -113,9 +113,11 @@ public class Player : MonoBehaviour
     {
         IsBoosted = true;
         PlayerMovement.SetSpeedBoost(true);
+        Events.OnSpeedBoostChanged.Invoke(true);
         yield return new WaitForSeconds(feverModeDuration);
         IsBoosted = false;
         PlayerMovement.SetSpeedBoost(false);
+        Events.OnSpeedBoostChanged.Invoke(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -157,11 +159,6 @@ public class Player : MonoBehaviour
 
             if (Stacker.Stacks.Count <= 0 && !obstacle.IsInteracted)
                 Die();
-            else if (Stacker.Stacks.Count > 0)
-            {
-                obstacle.OnInteracted(Stacker.Stacks[Stacker.Stacks.Count - 1]);
-                Events.OnLastStackableChanged.Invoke(Stacker.GetLastStack());
-            }
         }
     }
 
